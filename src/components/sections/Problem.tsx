@@ -51,16 +51,29 @@ export default function Problem() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5"
-            style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#F87171' }}
-          >
-            Le problème
+          <div className="section-label-block mb-6">
+            <span className="section-label-line" />
+            <span
+              className="text-[11px] font-semibold uppercase text-[#6B9AC4]"
+              style={{ letterSpacing: '0.4em' }}
+            >
+              Le constat
+            </span>
+            <span className="section-label-line" />
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4">
             Le modèle des franchises immobilières
             <br />
-            <span className="gradient-text">est-il encore adapté ?</span>
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #3B82F6 0%, #6B9AC4 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              est-il encore adapté ?
+            </span>
           </h2>
           <p className="text-white/50 max-w-xl mx-auto text-lg">
             Plus vous vendez, plus vous payez. Un modèle qui pénalise votre réussite.
@@ -226,7 +239,7 @@ export default function Problem() {
           {[
             { value: 32000, suffix: '€', label: 'économisés en moyenne / an', color: '#10B981' },
             { value: 0, suffix: '%', label: 'de commission sur votre CA', color: '#3B82F6' },
-            { value: 150, suffix: '€', label: 'seulement par vente réalisée', color: '#7C3AED' },
+            { value: 150, suffix: '€', label: 'seulement par vente réalisée', color: '#6B9AC4' },
           ].map((stat, i) => (
             <div key={i} className="space-y-1">
               <div className="text-3xl md:text-4xl font-black" style={{ color: stat.color }}>

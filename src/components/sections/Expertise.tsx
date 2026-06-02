@@ -43,7 +43,7 @@ const stats = [
     displayValue: '[X]',
     label: 'agences accompagnées',
     sublabel: 'En France',
-    color: '#7C3AED',
+    color: '#6B9AC4',
     placeholder: true,
   },
   {
@@ -89,16 +89,29 @@ export default function Expertise() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5"
-            style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', color: '#3B82F6' }}
-          >
-            Notre expertise
+          <div className="section-label-block mb-6">
+            <span className="section-label-line" />
+            <span
+              className="text-[11px] font-semibold uppercase text-[#6B9AC4]"
+              style={{ letterSpacing: '0.4em' }}
+            >
+              Notre expertise
+            </span>
+            <span className="section-label-line" />
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-4">
             Une expertise immobilière
             <br />
-            <span className="gradient-text">construite depuis 2007.</span>
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #3B82F6 0%, #6B9AC4 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              construite depuis 2007.
+            </span>
           </h2>
           <p className="text-white/50 max-w-xl mx-auto">
             17 ans d&apos;expérience au service des professionnels de l&apos;immobilier.
@@ -151,10 +164,10 @@ export default function Expertise() {
             Notre parcours depuis 2007
           </h3>
           <div className="relative">
-            {/* Timeline line */}
+            {/* Timeline line — logo DNA horizontal rule */}
             <div
               className="absolute top-5 left-0 right-0 h-px hidden md:block"
-              style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.3), rgba(124,58,237,0.3), transparent)' }}
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(45,74,107,0.5), rgba(59,130,246,0.3), transparent)' }}
             />
 
             <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
@@ -172,20 +185,20 @@ export default function Expertise() {
                     className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-black mb-3 relative z-10 shrink-0"
                     style={{
                       background: item.active
-                        ? 'linear-gradient(135deg, #3B82F6, #7C3AED)'
+                        ? 'linear-gradient(135deg, #2D4A6B, #3B82F6)'
                         : 'rgba(255,255,255,0.06)',
                       border: item.active
-                        ? '2px solid rgba(59,130,246,0.5)'
+                        ? '2px solid rgba(45,74,107,0.7)'
                         : '1px solid rgba(255,255,255,0.1)',
                       color: item.active ? 'white' : 'rgba(255,255,255,0.4)',
-                      boxShadow: item.active ? '0 0 20px rgba(59,130,246,0.3)' : 'none',
+                      boxShadow: item.active ? '0 0 20px rgba(45,74,107,0.4)' : 'none',
                     }}
                   >
                     {item.year.slice(2)}
                   </div>
                   <div
                     className="text-sm font-bold mb-1"
-                    style={{ color: item.active ? '#3B82F6' : 'rgba(255,255,255,0.7)' }}
+                    style={{ color: item.active ? '#6B9AC4' : 'rgba(255,255,255,0.7)' }}
                   >
                     {item.year}
                   </div>

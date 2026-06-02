@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle2, ChevronDown, Play } from 'lucide-react'
+import { ArrowRight, CheckCircle2, ChevronDown } from 'lucide-react'
+import Image from 'next/image'
 
 const trustBadges = [
   '0 % sur votre chiffre d\'affaires',
@@ -22,6 +23,117 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 1.11, 0.81, 0.99] } },
 }
 
+// Simple France network SVG — dots connected by lines, evokes a property network spreading nationally
+function FranceNetworkMap() {
+  // Approximate city positions as % of a 400×460 viewBox
+  const cities = [
+    { id: 'paris',     x: 200, y: 110, size: 5, label: 'Paris' },
+    { id: 'lyon',      x: 225, y: 250, size: 4 },
+    { id: 'marseille', x: 230, y: 340, size: 4 },
+    { id: 'bordeaux',  x: 120, y: 290, size: 3 },
+    { id: 'toulouse',  x: 165, y: 320, size: 3 },
+    { id: 'nantes',    x: 105, y: 200, size: 3 },
+    { id: 'rennes',    x: 90,  y: 155, size: 3 },
+    { id: 'strasbourg',x: 295, y: 140, size: 3 },
+    { id: 'nice',      x: 280, y: 330, size: 3 },
+    { id: 'lille',     x: 195, y: 65,  size: 3 },
+  ]
+
+  const connections = [
+    ['paris', 'lyon'],
+    ['paris', 'nantes'],
+    ['paris', 'rennes'],
+    ['paris', 'strasbourg'],
+    ['paris', 'lille'],
+    ['lyon', 'marseille'],
+    ['lyon', 'toulouse'],
+    ['lyon', 'nice'],
+    ['bordeaux', 'toulouse'],
+    ['bordeaux', 'nantes'],
+    ['marseille', 'nice'],
+    ['nantes', 'rennes'],
+  ]
+
+  const cityMap = Object.fromEntries(cities.map(c => [c.id, c]))
+
+  return (
+    <svg
+      viewBox="60 40 220 340"
+      className="w-full h-full"
+      aria-hidden="true"
+    >
+      {/* Connection lines */}
+      {connections.map(([a, b]) => {
+        const ca = cityMap[a]
+        const cb = cityMap[b]
+        return (
+          <motion.line
+            key={`${a}-${b}`}
+            x1={ca.x} y1={ca.y}
+            x2={cb.x} y2={cb.y}
+            stroke="#2D4A6B"
+            strokeWidth="0.6"
+            strokeOpacity="0.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1.2, delay: 1.4, ease: 'easeInOut' }}
+          />
+        )
+      })}
+      {/* City dots */}
+      {cities.map((c, i) => (
+        <g key={c.id}>
+          <motion.circle
+            cx={c.x}
+            cy={c.y}
+            r={c.size + 2}
+            fill="#2D4A6B"
+            fillOpacity="0.15"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 1.6 + i * 0.07, duration: 0.4 }}
+          />
+          <motion.circle
+            cx={c.x}
+            cy={c.y}
+            r={c.size}
+            fill="#3D5A7B"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 1.6 + i * 0.07, duration: 0.4 }}
+          />
+          {c.label && (
+            <motion.text
+              x={c.x + 8}
+              y={c.y + 4}
+              fontSize="8"
+              fill="rgba(255,255,255,0.5)"
+              fontFamily="system-ui"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.0 }}
+            >
+              {c.label}
+            </motion.text>
+          )}
+        </g>
+      ))}
+      {/* Pulse on Paris */}
+      <motion.circle
+        cx={200}
+        cy={110}
+        r={10}
+        fill="none"
+        stroke="#3B82F6"
+        strokeWidth="0.8"
+        strokeOpacity="0.5"
+        animate={{ r: [8, 18], opacity: [0.6, 0] }}
+        transition={{ repeat: Infinity, duration: 2.5, delay: 2.2 }}
+      />
+    </svg>
+  )
+}
+
 export default function Hero() {
   const scrollTo = (id: string) => {
     const el = document.querySelector(id)
@@ -35,42 +147,90 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-20 px-4"
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden pt-32 pb-20 px-4"
     >
-      {/* Background */}
-      <div className="absolute inset-0 grid-overlay opacity-40" />
+      {/* Blueprint grid — architectural feel */}
+      <div
+        className="absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(45,74,107,0.35) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(45,74,107,0.35) 1px, transparent 1px),
+            linear-gradient(rgba(45,74,107,0.12) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(45,74,107,0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: '120px 120px, 120px 120px, 30px 30px, 30px 30px',
+        }}
+      />
 
-      {/* Gradient orbs */}
+      {/* Gradient orbs — navy + blue */}
+      <div
+        className="orb orb-navy absolute"
+        style={{ width: 700, height: 700, top: '-15%', left: '10%', opacity: 0.1 }}
+      />
       <div
         className="orb orb-blue absolute"
-        style={{ width: 600, height: 600, top: '-10%', left: '20%', opacity: 0.12 }}
+        style={{ width: 400, height: 400, bottom: '5%', right: '15%', opacity: 0.1 }}
       />
-      <div
-        className="orb orb-purple absolute"
-        style={{ width: 500, height: 500, bottom: '10%', right: '10%', opacity: 0.1 }}
-      />
+
+      {/* Top accent line */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(45,74,107,0.6), rgba(59,130,246,0.3), transparent)' }}
       />
+
+      {/* Huge GNI watermark background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
+        <span
+          className="font-black text-white/[0.018] tracking-[0.4em]"
+          style={{ fontSize: 'clamp(6rem, 18vw, 20rem)', lineHeight: 1 }}
+          aria-hidden="true"
+        >
+          G|N|I
+        </span>
+      </div>
+
+      {/* France network map — right side, desktop only */}
+      <div
+        className="absolute right-[4%] top-1/2 -translate-y-1/2 w-56 h-72 opacity-50 pointer-events-none hidden lg:block"
+        aria-hidden="true"
+      >
+        <FranceNetworkMap />
+      </div>
 
       {/* Hero content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-5xl mx-auto text-center"
+        className="relative z-10 max-w-4xl mx-auto text-center"
       >
+        {/* Logo + horizontal rules */}
+        <motion.div variants={itemVariants} className="flex flex-col items-center mb-10">
+          <div className="w-20 h-px bg-[#2D4A6B]/60 mb-7" />
+          <Image
+            src="/logo-gni-transparent.png"
+            alt="GNI – Groupe National Immobilier"
+            width={180}
+            height={88}
+            className="h-16 w-auto filter brightness-0 invert mb-7"
+            priority
+          />
+          <div className="w-20 h-px bg-[#2D4A6B]/60" />
+        </motion.div>
+
         {/* Badge */}
-        <motion.div variants={itemVariants} className="flex justify-center mb-6">
+        <motion.div variants={itemVariants} className="flex justify-center mb-7">
           <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-brand-blue"
+            className="inline-flex items-center gap-2.5 px-4 py-2 text-xs font-semibold uppercase"
             style={{
-              background: 'rgba(59,130,246,0.08)',
-              border: '1px solid rgba(59,130,246,0.25)',
+              background: 'rgba(45,74,107,0.12)',
+              border: '1px solid rgba(45,74,107,0.35)',
+              color: '#6B9AC4',
+              letterSpacing: '0.25em',
             }}
           >
-            <span className="w-2 h-2 rounded-full bg-brand-blue animate-pulse-slow" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
             Le réseau immobilier qui révolutionne le modèle économique
           </div>
         </motion.div>
@@ -78,19 +238,18 @@ export default function Hero() {
         {/* Main headline */}
         <motion.h1
           variants={itemVariants}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black tracking-tight leading-[1.05] mb-6"
         >
           Gardez{' '}
           <span
-            className="relative inline-block"
             style={{
-              background: 'linear-gradient(135deg, #3B82F6 0%, #7C3AED 100%)',
+              background: 'linear-gradient(135deg, #3B82F6 0%, #6B9AC4 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
             }}
           >
-            100 %
+            100&nbsp;%
           </span>
           <br />
           de votre chiffre
@@ -101,24 +260,22 @@ export default function Hero() {
         {/* Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8 leading-relaxed"
+          className="text-lg md:text-xl text-white/55 max-w-2xl mx-auto mb-8 leading-relaxed"
         >
           Le premier réseau immobilier qui remplace les commissions sur votre CA par une{' '}
-          <span className="text-white/90 font-medium">contribution fixe de 150 €</span>{' '}
+          <span className="text-white/90 font-medium">contribution fixe de 150&nbsp;€</span>{' '}
           uniquement lorsqu&apos;une vente est réalisée.
         </motion.p>
 
         {/* Trust badges */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap justify-center gap-3 mb-10"
+          className="flex flex-wrap justify-center gap-4 mb-10"
         >
-          {trustBadges.map((badge) => (
-            <div
-              key={badge}
-              className="flex items-center gap-2 text-sm text-white/70"
-            >
-              <CheckCircle2 size={15} className="text-brand-blue shrink-0" />
+          {trustBadges.map((badge, i) => (
+            <div key={badge} className="flex items-center gap-2 text-sm text-white/65">
+              {i > 0 && <span className="w-px h-3.5 bg-[#2D4A6B]/50 hidden sm:block" />}
+              <CheckCircle2 size={14} className="text-[#3B82F6] shrink-0" />
               <span>{badge}</span>
             </div>
           ))}
@@ -141,137 +298,22 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => scrollTo('#demo')}
+            onClick={() => scrollTo('#calculateur')}
             className="btn-ghost text-base px-7 py-4 w-full sm:w-auto"
+            style={{ borderColor: 'rgba(45,74,107,0.5)' }}
           >
-            <Play size={16} className="text-brand-blue" />
-            Voir l&apos;outil en action
+            Calculer mes économies
           </motion.button>
         </motion.div>
 
         {/* Trust bar */}
         <motion.p
           variants={itemVariants}
-          className="text-sm text-white/35 font-medium tracking-wide"
+          className="text-[11px] text-white/30 font-medium uppercase"
+          style={{ letterSpacing: '0.35em' }}
         >
           Depuis 2007 au service des professionnels de l&apos;immobilier
         </motion.p>
-      </motion.div>
-
-      {/* Dashboard mockup */}
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8, ease: [0.21, 1.11, 0.81, 0.99] }}
-        className="relative z-10 mt-16 w-full max-w-4xl mx-auto px-4"
-      >
-        <div
-          className="rounded-2xl overflow-hidden"
-          style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05)',
-          }}
-        >
-          {/* Window chrome */}
-          <div
-            className="flex items-center gap-2 px-4 py-3"
-            style={{ borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}
-          >
-            <div className="w-3 h-3 rounded-full bg-red-500/60" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-            <div className="w-3 h-3 rounded-full bg-green-500/60" />
-            <div className="flex-1 mx-4">
-              <div
-                className="h-5 rounded-md max-w-xs mx-auto flex items-center justify-center text-xs text-white/30"
-                style={{ background: 'rgba(255,255,255,0.04)' }}
-              >
-                gni.fr/dashboard
-              </div>
-            </div>
-          </div>
-
-          {/* Dashboard content */}
-          <div className="p-6 grid grid-cols-12 gap-4">
-            {/* Sidebar */}
-            <div className="col-span-2 space-y-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div
-                  key={i}
-                  className="h-7 rounded-lg"
-                  style={{
-                    background: i === 1 ? 'rgba(59,130,246,0.3)' : 'rgba(255,255,255,0.04)',
-                    width: `${60 + i * 5}%`,
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Main area */}
-            <div className="col-span-10 space-y-4">
-              {/* Stats row */}
-              <div className="grid grid-cols-4 gap-3">
-                {[
-                  { label: 'Ventes ce mois', value: '12', color: '#3B82F6' },
-                  { label: 'CA réalisé', value: '184 000 €', color: '#10B981' },
-                  { label: 'Contribution GNI', value: '1 800 €', color: '#7C3AED' },
-                  { label: 'Économies', value: '7 400 €', color: '#F59E0B' },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="p-3 rounded-xl"
-                    style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
-                  >
-                    <div className="text-xs text-white/40 mb-1">{stat.label}</div>
-                    <div className="text-base font-bold" style={{ color: stat.color }}>{stat.value}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Chart area */}
-              <div
-                className="rounded-xl p-4 h-24 flex items-end gap-1.5"
-                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}
-              >
-                {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 100].map((h, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ height: 0 }}
-                    animate={{ height: `${h}%` }}
-                    transition={{ delay: 1.2 + i * 0.05, duration: 0.4 }}
-                    className="flex-1 rounded-sm"
-                    style={{
-                      background: i === 11
-                        ? 'linear-gradient(to top, #3B82F6, #7C3AED)'
-                        : 'rgba(59,130,246,0.3)',
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Table rows */}
-              <div className="space-y-2">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="h-8 rounded-lg flex items-center px-3 gap-3"
-                    style={{ background: 'rgba(255,255,255,0.02)' }}
-                  >
-                    <div className="w-5 h-5 rounded-full" style={{ background: `rgba(59,130,246,${0.3 + i * 0.1})` }} />
-                    <div className="h-2 rounded-full flex-1" style={{ background: 'rgba(255,255,255,0.06)', maxWidth: `${50 + i * 15}%` }} />
-                    <div className="h-2 rounded-full w-16" style={{ background: 'rgba(16,185,129,0.3)' }} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Glow under card */}
-        <div
-          className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 blur-3xl"
-          style={{ background: 'rgba(59,130,246,0.15)' }}
-        />
       </motion.div>
 
       {/* Scroll indicator */}
@@ -282,12 +324,12 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
         onClick={() => scrollTo('#probleme')}
       >
-        <span className="text-xs text-white/30 tracking-widest uppercase">Défiler</span>
+        <span className="text-[10px] text-white/25 uppercase" style={{ letterSpacing: '0.4em' }}>Défiler</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
-          <ChevronDown size={18} className="text-white/30" />
+          <ChevronDown size={16} className="text-white/25" />
         </motion.div>
       </motion.div>
     </section>

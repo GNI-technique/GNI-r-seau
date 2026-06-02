@@ -10,6 +10,7 @@ import Compatibility from '@/components/sections/Compatibility'
 import Mutualization from '@/components/sections/Mutualization'
 import Comparison from '@/components/sections/Comparison'
 import Expertise from '@/components/sections/Expertise'
+import BrandMoment from '@/components/sections/BrandMoment'
 import Testimonials from '@/components/sections/Testimonials'
 import FAQ from '@/components/sections/FAQ'
 import CTAFinal from '@/components/sections/CTAFinal'
@@ -32,6 +33,7 @@ export default function Home() {
       <Mutualization />
       <Comparison />
       <Expertise />
+      <BrandMoment />
       <Testimonials />
       <FAQ />
       <CTAFinal />

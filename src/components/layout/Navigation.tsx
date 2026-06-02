@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
@@ -49,29 +50,32 @@ export default function Navigation() {
           <a
             href="#hero"
             onClick={(e) => { e.preventDefault(); handleNav('#hero') }}
-            className="flex items-center gap-3 group"
+            className="flex items-center group"
           >
-            <div className="relative">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/30 group-hover:shadow-brand-blue/50 transition-all duration-200">
-                <span className="text-white font-black text-sm tracking-tight">GNI</span>
-              </div>
-            </div>
-            <span className="font-bold text-lg text-brand-light hidden sm:block">
-              GNI
-              <span className="text-brand-blue ml-1 font-light text-sm">réseau</span>
-            </span>
+            <Image
+              src="/logo-gni-transparent.png"
+              alt="GNI – Groupe National Immobilier"
+              width={120}
+              height={56}
+              className="h-10 w-auto filter brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+              priority
+            />
           </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNav(link.href)}
-                className="px-4 py-2 text-sm font-medium text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-150"
-              >
-                {link.label}
-              </button>
+          <div className="hidden md:flex items-center">
+            {navLinks.map((link, idx) => (
+              <div key={link.href} className="flex items-center">
+                {idx > 0 && (
+                  <span className="w-px h-4 bg-[#2D4A6B]/50 mx-1" />
+                )}
+                <button
+                  onClick={() => handleNav(link.href)}
+                  className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white rounded-lg hover:bg-white/5 transition-all duration-150 tracking-wide"
+                >
+                  {link.label}
+                </button>
+              </div>
             ))}
           </div>
 

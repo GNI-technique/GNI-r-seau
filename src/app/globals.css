@@ -7,6 +7,9 @@
   --foreground: #F8F8F8;
   --brand-blue: #3B82F6;
   --brand-purple: #7C3AED;
+  --navy: #2D4A6B;
+  --navy-light: #3D5A7B;
+  --navy-dark: #1D3A5B;
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-hover: rgba(255, 255, 255, 0.07);
@@ -27,7 +30,7 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  font-family: var(--font-inter), Outfit, system-ui, sans-serif;
   overflow-x: hidden;
 }
 
@@ -150,6 +153,44 @@ body {
       linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+
+  /* GNI Brand DNA utilities */
+  .section-rule-top {
+    border-top: 1px solid rgba(45, 74, 107, 0.4);
+  }
+
+  .tracking-logo {
+    letter-spacing: 0.3em;
+  }
+
+  .tracking-ultra {
+    letter-spacing: 0.5em;
+  }
+
+  /* Vertical bar separator — logo motif */
+  .gni-bar {
+    display: inline-block;
+    width: 1px;
+    height: 1.1em;
+    background: rgba(45, 74, 107, 0.7);
+    vertical-align: middle;
+    margin: 0 0.45em;
+  }
+
+  /* Section label with horizontal rules above/below */
+  .section-label-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label-line {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: rgba(45, 74, 107, 0.5);
+  }
 }
 
 /* Animated gradient orb */
@@ -168,6 +209,11 @@ body {
 .orb-purple {
   background: radial-gradient(circle, #7C3AED, transparent);
   animation-delay: -4s;
+}
+
+.orb-navy {
+  background: radial-gradient(circle, #2D4A6B, transparent);
+  animation-delay: -2s;
 }
 
 @keyframes float {
