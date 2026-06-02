@@ -1,28 +1,35 @@
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
+import { Barlow_Condensed, Inter } from 'next/font/google'
 import './globals.css'
 
-const outfit = Outfit({
+const barlowCondensed = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'GNI – Réseau Immobilier | 0% sur votre CA, 150€ par vente',
+  title: 'GNI - Groupe National Immobilier | Commission fixe par vente',
   description:
-    'GNI est le premier réseau immobilier à remplacer les commissions sur votre chiffre d\'affaires par une contribution fixe de seulement 150€ par vente réalisée. Gardez 100% de votre CA.',
+    "GNI est un réseau national de franchises immobilières fondé en 2007. Un modèle unique : commission fixe par vente, pas un pourcentage. Rejoignez 180+ agences franchisées.",
   keywords: [
-    'réseau immobilier sans commission',
-    'franchise immobilière alternative',
+    'réseau immobilier franchise',
+    'franchise immobilière commission fixe',
     'réseau immobilier indépendant',
     'GNI réseau immobilier',
-    'agence immobilière 0 commission',
-    '150 euros par vente immobilier',
+    'agence immobilière franchisée',
+    'franchise immobilier forfait fixe',
     'réseau immobilier directeurs agence',
-    'réseau immobilier rentabilité',
+    'Groupe National Immobilier',
   ],
-  authors: [{ name: 'GNI – Réseau Immobilier' }],
+  authors: [{ name: 'GNI – Groupe National Immobilier' }],
   creator: 'GNI',
   publisher: 'GNI',
   metadataBase: new URL('https://www.gni.fr'),
@@ -33,24 +40,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     url: 'https://www.gni.fr',
-    siteName: 'GNI – Réseau Immobilier',
-    title: 'GNI – 0% sur votre CA | 150€ par vente réalisée',
+    siteName: 'GNI – Groupe National Immobilier',
+    title: 'GNI - Groupe National Immobilier | Commission fixe par vente',
     description:
-      'Le premier réseau immobilier qui vous laisse garder 100% de votre chiffre d\'affaires. Contribution fixe de 150€ par vente, accompagnement depuis 2007.',
+      "Réseau national de franchises immobilières fondé en 2007. Commission fixe par vente, territoire exclusif, outils inclus. 180+ agences actives.",
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'GNI – Le réseau qui gagne quand vous gagnez',
+        alt: 'GNI – Groupe National Immobilier',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GNI – 0% sur votre CA | 150€ par vente',
-    description:
-      'Le premier réseau immobilier avec contribution fixe. Gardez 100% de votre CA.',
+    title: 'GNI - Groupe National Immobilier | Commission fixe',
+    description: 'Réseau national de franchises immobilières. Commission fixe par vente.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -69,11 +75,11 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'GNI – Réseau Immobilier',
+  name: 'GNI – Groupe National Immobilier',
   url: 'https://www.gni.fr',
-  logo: 'https://www.gni.fr/logo.png',
+  logo: 'https://www.gni.fr/logo-gni-transparent.png',
   description:
-    'GNI est le premier réseau immobilier français proposant un modèle sans commission sur le chiffre d\'affaires. Contribution fixe de 150€ par vente réalisée.',
+    "GNI est un réseau national de franchises immobilières fondé en 2007. Modèle unique : commission fixe par vente.",
   foundingDate: '2007',
   address: {
     '@type': 'PostalAddress',
@@ -93,14 +99,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className={outfit.variable}>
+    <html lang="fr" className={`${barlowCondensed.variable} ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-brand-dark text-brand-light antialiased">
+      <body className="antialiased">
         {children}
       </body>
     </html>
