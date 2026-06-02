@@ -1,9 +1,9 @@
 const stats = [
-  { value: '180+', label: 'Agences actives', size: 'large' },
-  { value: '17', label: 'Ans de réseau', size: 'medium' },
-  { value: '94%', label: 'Taux de renouvellement', size: 'large' },
-  { value: '43 j', label: 'Délai moyen de vente', size: 'medium' },
-  { value: '62', label: 'Départements couverts', size: 'small' },
+  { value: '0 %', label: 'Sur votre chiffre d\'affaires', size: 'large' },
+  { value: '150 €', label: 'Par vente réalisée, c\'est tout', size: 'large' },
+  { value: '100 %', label: 'De vos honoraires vous reviennent', size: 'medium' },
+  { value: '1 prix', label: 'Identique pour tous les biens', size: 'medium' },
+  { value: '0 €', label: 'De négociation possible', size: 'small' },
 ]
 
 const sizeClass: Record<string, string> = {
@@ -17,7 +17,7 @@ export default function NetworkStats() {
     <section id="reseau-chiffres" className="section-py section-px bg-[#122845]">
       <div className="container-max">
         <div className="mb-12">
-          <span className="label-tag text-[#4A7099]">Le réseau en chiffres</span>
+          <span className="label-tag text-[#4A7099]">Le modèle en chiffres</span>
         </div>
         <div className="flex flex-wrap items-end gap-0">
           {stats.map((stat, i) => (

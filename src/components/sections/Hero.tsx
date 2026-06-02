@@ -3,10 +3,10 @@
 import { ArrowDown } from 'lucide-react'
 
 const proofStats = [
-  { value: '180+', label: 'Agences franchisées' },
-  { value: '17 ans', label: "D'expérience réseau" },
-  { value: '94%', label: 'Taux de renouvellement' },
-  { value: '-12 jours', label: 'vs délai marché national' },
+  { value: '0 %', label: 'Sur votre chiffre d\'affaires' },
+  { value: '150 €', label: 'Par vente réalisée, fixe' },
+  { value: '100 %', label: 'De vos honoraires conservés' },
+  { value: '1 prix', label: 'Pour tous vos clients' },
 ]
 
 export default function Hero() {
