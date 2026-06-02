@@ -4,7 +4,7 @@ import Differentiator from '@/components/sections/Differentiator'
 import Benefits from '@/components/sections/Benefits'
 import Calculator from '@/components/sections/Calculator'
 import NetworkStats from '@/components/sections/NetworkStats'
-import Testimonials from '@/components/sections/Testimonials'
+import AIAssistant from '@/components/sections/AIAssistant'
 import Transparency from '@/components/sections/Transparency'
 import FAQ from '@/components/sections/FAQ'
 import CTAFinal from '@/components/sections/CTAFinal'
@@ -19,7 +19,7 @@ export default function Home() {
       <Benefits />
       <Calculator />
       <NetworkStats />
-      <Testimonials />
+      <AIAssistant />
       <Transparency />
       <FAQ />
       <CTAFinal />
